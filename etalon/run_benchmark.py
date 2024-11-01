@@ -201,6 +201,7 @@ def run_benchmark(
     target_deadline_miss_rate: float = 0.1,
     should_write_metrics: bool = True,
     wandb_project: str = None,
+    wandb_entity: str = None,
     wandb_group: str = None,
     wandb_run_name: str = None,
     address_append_value: Optional[str] = "chat/completions",
@@ -237,6 +238,7 @@ def run_benchmark(
         target_deadline_miss_rate=target_deadline_miss_rate,
         should_write_metrics=should_write_metrics,
         wandb_project=wandb_project,
+        wandb_entity=wandb_entity,
         wandb_group=wandb_group,
         wandb_run_name=wandb_run_name,
     )
@@ -559,6 +561,12 @@ def parse_args():
         help=("The wandb project name. (default: %(default)s)"),
     )
     args.add_argument(
+        "--wandb-entity",
+        type=str,
+        default=None,
+        help=("The wandb entity name. (default: %(default)s)"),
+    )
+    args.add_argument(
         "--wandb-group",
         type=str,
         default=None,
@@ -629,7 +637,7 @@ def parse_args():
     return args
 
 
-if __name__ == "__main__":
+def entrypoint():
     random.seed(11111)
 
     ray.init(runtime_env={"env_vars": dict(os.environ)})
@@ -654,8 +662,12 @@ if __name__ == "__main__":
         target_deadline_miss_rate=args.target_deadline_miss_rate,
         should_write_metrics=args.should_write_metrics,
         wandb_project=args.wandb_project,
+        wandb_entity=args.wandb_entity,
         wandb_group=args.wandb_group,
         wandb_run_name=args.wandb_run_name,
         address_append_value=args.address_append_value,
         request_every_minute=args.request_every_minute,
     )
+
+if __name__ == "__main__":
+    entrypoint()
