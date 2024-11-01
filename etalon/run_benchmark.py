@@ -640,7 +640,7 @@ def parse_args():
 def entrypoint():
     random.seed(11111)
 
-    ray.init(runtime_env={"env_vars": dict(os.environ)})
+    ray.init(runtime_env={"env_vars": dict(os.environ)}, ignore_reinit_error=True)
 
     args = parse_args()
 
