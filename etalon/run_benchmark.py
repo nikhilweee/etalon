@@ -669,5 +669,6 @@ def entrypoint():
         request_every_minute=args.request_every_minute,
     )
 
+
 if __name__ == "__main__":
     entrypoint()
