@@ -637,10 +637,10 @@ def parse_args():
     return args
 
 
-def entrypoint():
+if __name__ == "__main__":
     random.seed(11111)
 
-    ray.init(runtime_env={"env_vars": dict(os.environ)}, ignore_reinit_error=True)
+    ray.init(runtime_env={"env_vars": dict(os.environ)})
 
     args = parse_args()
 
@@ -668,7 +668,3 @@ def entrypoint():
         address_append_value=args.address_append_value,
         request_every_minute=args.request_every_minute,
     )
-
-
-if __name__ == "__main__":
-    entrypoint()
